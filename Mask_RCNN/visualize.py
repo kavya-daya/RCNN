@@ -109,7 +109,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         color = colors[i]
 
         # Bounding box
-        if class_names[class_id] == 'person':  
+        if class_names[class_ids] == 'person':  
             if not np.any(boxes[i]):
                 # Skip this instance. Has no bbox. Likely lost in image cropping.
                 continue
