@@ -105,8 +105,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     ax.set_title(title)
 
     masked_image = image.astype(np.uint32).copy()
-    for i in range(N):
-        color = colors[i]
+        for i in range(N):
+            color = colors[i]
         #class_id = class_ids[i]
         print("\n boxes *** \n",boxes)
         print("\n class_names *** \n",class_names)
