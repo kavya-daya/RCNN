@@ -76,7 +76,7 @@ def apply_mask(image, mask, color, alpha=0.5):
 def display_instances(image, boxes, masks, class_ids, class_names,
                       scores=None, title="",
                       figsize=(16, 16), ax=None,
-                      show_mask=True, show_bbox=False,
+                      show_mask=False, show_bbox=False,
                       colors=None, captions=None):
     """
     boxes: [num_instance, (y1, x1, y2, x2, class_id)] in image coordinates.
@@ -116,12 +116,16 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     masked_image = image.astype(np.uint32).copy()
     for i in range(N):
         color = colors[i]
-
+        class_id = class_ids[i]
+        show_bbox = False
+        show_mask = False
         # Bounding box
         if not np.any(boxes[i]):
             # Skip this instance. Has no bbox. Likely lost in image cropping.
             continue
         y1, x1, y2, x2 = boxes[i]
+        if class_id == 1 :
+          show_bbox = True
         if show_bbox:
             p = patches.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=2,
                                 alpha=0.7, linestyle="dashed",
@@ -130,7 +134,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
 
         # Label
         if not captions:
-            class_id = class_ids[i]
+            #class_id = class_ids[i]
             score = scores[i] if scores is not None else None
             label = class_names[class_id]
             x = random.randint(x1, (x1 + x2) // 2)
@@ -142,6 +146,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
 
         # Mask
         mask = masks[:, :, i]
+        if class_id == 1 :
+          show_mask = True
         if show_mask:
             masked_image = apply_mask(masked_image, mask, color)
 
