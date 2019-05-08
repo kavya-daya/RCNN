@@ -16,16 +16,12 @@ import colorsys
 import numpy as np
 from skimage.measure import find_contours
 import matplotlib.pyplot as plt
-from matplotlib import patches,  lines
+import matplotlib.patches as patches
+import matplotlib.lines as lines
 from matplotlib.patches import Polygon
 import IPython.display
 
-# Root directory of the project
-ROOT_DIR = os.path.abspath("../")
-
-# Import Mask RCNN
-sys.path.append(ROOT_DIR)  # To find local version of the library
-from mrcnn import utils
+import utils
 
 
 ############################################################
@@ -144,7 +140,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         else:
             caption = captions[i]
         ax.text(x1, y1 + 8, caption,
-                color='w', size=11, backgroundcolor="none")
+                color='w', size=20, backgroundcolor="none")
 
         # Mask
         mask = masks[:, :, i]
